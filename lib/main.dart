@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'pages/pages.dart';
+import 'store/store.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,14 +13,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Pomodoro Timer',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return MultiProvider(
+      providers: [
+        Provider<PomodoroStore>(
+          create: (context) => PomodoroStore(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Pomodoro Timer',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: const Pomodoro(),
+        debugShowCheckedModeBanner: false,
       ),
-      home: const Pomodoro(),
-      debugShowCheckedModeBanner: false,
     );
   }
 }
